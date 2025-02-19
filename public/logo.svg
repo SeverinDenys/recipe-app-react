@@ -1,0 +1,14 @@
+<svg width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Text Styling -->
+  <text x="10" y="50" font-family="Georgia, serif" font-size="32" fill="black" font-weight="bold">
+    Recipe
+  </text>
+  <text x="130" y="50" font-family="Georgia, serif" font-size="32" fill="black" font-weight="bold">
+    Sherlock
+  </text>
+  
+ 
+  
+  <!-- Knife & Fork -->
+  <text x="270" y="50" font-family="Arial" font-size="32" fill="green" font-weight="bold">🍴</text>
+</svg>
