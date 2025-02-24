@@ -1,26 +1,29 @@
 import { Heart, HeartPulse, Soup } from "lucide-react";
 import { useState } from "react";
+import { Recipe, RecipeCardProps } from "../lib/types";
 
-const getTwoValuesFromArray = (arr) => {
+function getTwoValuesFromArray<T>(arr: T[]): [T | undefined, T | undefined] {
   return [arr[0], arr[1]];
-};
+}
 
-const RecipeCard = ({ recipe, bg, badge }) => {
+const RecipeCard = ({ recipe, bg, badge }: RecipeCardProps) => {
   const healthLabels = getTwoValuesFromArray(recipe.healthLabels);
-  const [isFavorite, setIsFavorite] = useState(localStorage.getItem('favorites')?.includes(recipe.label))
+  const [isFavorite, setIsFavorite] = useState(localStorage.getItem("favorites")?.includes(recipe.label));
 
   const addRecipteToFavourites = () => {
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isRecipeAlreadyInFavorites = favorites.some((fav) => fav.label === recipe.label);
+    const storedFavorites = localStorage.getItem("favorites");
+
+    let favorites = storedFavorites ? JSON.parse(storedFavorites) : [];
+    const isRecipeAlreadyInFavorites = favorites.some((fav: Recipe) => fav.label === recipe.label);
 
     if (isRecipeAlreadyInFavorites) {
-      favorites = favorites.filter((fav) => fav.label !== recipe.label);
-      setIsFavorite(false)
+      favorites = favorites.filter((fav: Recipe) => fav.label !== recipe.label);
+      setIsFavorite(false);
     } else {
-      favorites.push(recipe)
-      setIsFavorite(true)
+      favorites.push(recipe);
+      setIsFavorite(true);
     }
-    localStorage.setItem('favorites', JSON.stringify(favorites))
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   };
   return (
     <div className={`flex flex-col rounded-md ${bg} overflow-hidden p-3 relative`}>
@@ -29,7 +32,7 @@ const RecipeCard = ({ recipe, bg, badge }) => {
         target="_blank"
         className="relative h-32 "
       >
-        <img src={recipe.image} alt="recipe img" className="rounded-md w-full h-full object-cover cursor-pointer" />
+        <img src={recipe.image} alt="recipe img" className="rounded-md w-full h-full object-cover cursor-pointer  " />
         <div className="absolute bottom-2 left-2 bg-white rounded-full p-1 cursor-pointer flex items-center gap-1 text-sm">
           <Soup size={"16"} /> <p>{recipe.yield} Servings</p>
         </div>
@@ -41,8 +44,8 @@ const RecipeCard = ({ recipe, bg, badge }) => {
             addRecipteToFavourites();
           }}
         >
-         {!isFavorite && <Heart size={"20"} className="hover:fill-red-500 hover:text-red-500" />}  
-          {isFavorite && <Heart size={"20"} className="fill-red-500 text-red-500" />} 
+          {!isFavorite && <Heart size={"20"} className="hover:fill-red-500 hover:text-red-500" />}
+          {isFavorite && <Heart size={"20"} className="fill-red-500 text-red-500" />}
         </div>
       </a>
       <div className="flex mt-1 ">

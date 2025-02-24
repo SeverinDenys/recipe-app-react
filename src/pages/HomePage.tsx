@@ -42,10 +42,20 @@ const HomePage = () => {
     fetchRecipes("chicken");
   }, []);
 
+  const handleSearchRecipe = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //
+    const input = e.currentTarget.querySelector("input") as HTMLInputElement;
+
+    if (input) {
+      fetchRecipes(input.value);
+    }
+  };
+
   return (
     <div className="bg-[#faf9fb] p-10 flex-1">
       <div className="max-w-screen-lg mx-auto">
-        <form>
+        <form onSubmit={handleSearchRecipe}>
           <label className="input shadow-md flex items-center gap-2 w-full max-w-lg">
             <Search size={"24"} />
             <input
